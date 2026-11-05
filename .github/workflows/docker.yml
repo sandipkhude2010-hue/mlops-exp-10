@@ -1,0 +1,17 @@
+name: Docker Build Test
+
+on: [push]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t ml-app .
+
+      - name: Test Docker Image
+        run: docker run -d -p 5000:5000 --name test-app ml-app
